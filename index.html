@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+<!-- Google Analytics (GA4) — TODO Ostap: заміни обидва G-XXXXXXXXXX на свій Measurement ID з analytics.google.com -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bambuk Craft — крафтові сувеніри зі Львова</title>
@@ -967,11 +977,10 @@
       </button>
     </div>
 
-    <!-- action/method to be pointed at the backend endpoint -->
-    <form class="px-7 pb-7 pt-6 space-y-4" method="post" action="#" novalidate>
+    <form class="px-7 pb-7 pt-6 space-y-4" method="post" action="https://formspree.io/f/mqpaqzve" novalidate>
       <!-- honeypot: hidden from people, filled by bots -->
       <div class="hidden" aria-hidden="true">
-        <label>Не заповнюйте це поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <label>Не заповнюйте це поле<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-4">
@@ -1022,10 +1031,10 @@
       </button>
     </div>
 
-    <form id="orderForm" class="flex flex-col flex-1 min-h-0" method="post" action="#" novalidate>
+    <form id="orderForm" class="flex flex-col flex-1 min-h-0" method="post" action="https://formspree.io/f/myezwyzk" novalidate>
       <div class="flex-1 min-h-0 overflow-y-auto px-7 pt-6 pb-4 space-y-5">
         <div class="hidden" aria-hidden="true">
-          <label>Не заповнюйте це поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <label>Не заповнюйте це поле<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
         </div>
 
         <fieldset>
@@ -1072,17 +1081,9 @@
           <textarea class="field resize-y min-h-[90px]" id="o_msg" name="message" rows="3"></textarea>
         </div>
 
-        <!-- ═══ CAPTCHA PLACEHOLDER ═══
-             Backend team: add to <head>
-               <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-             then replace data-sitekey below with the real key and delete this note. -->
         <div>
           <span class="lbl" data-i18n="fm.verify">Підтвердження *</span>
-          <div class="g-recaptcha" data-sitekey="RECAPTCHA_SITE_KEY_HERE"></div>
-          <div class="rounded-md border border-dashed border-ink/25 bg-ink/3 px-4 py-5 text-center">
-            <p class="text-[13px] text-ink/50" data-i18n="fm.captcha">Місце для reCAPTCHA</p>
-            <p class="text-[11.5px] text-ink/35 mt-1">заглушка — підключається ключем на бекенді</p>
-          </div>
+          <div class="g-recaptcha" data-sitekey="6LdKhsctAAAAANVhRwtYpxtjXJ-iXGBsICWn9oFR"></div>
         </div>
       </div>
 

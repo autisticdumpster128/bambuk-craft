@@ -148,6 +148,51 @@
     });
   }
 
+  /* ——— send both modal forms to Formspree via fetch, so the page never reloads ——— */
+  function wireAjaxForm(form) {
+    if (!form) return;
+    var status = document.createElement('p');
+    status.className = 'text-[13px] mt-3';
+    form.appendChild(status);
+
+    form.addEventListener('submit', function (evt) {
+      if (evt.defaultPrevented) return; // валідація форми замовлення вище вже заблокувала
+      evt.preventDefault();
+
+      status.style.color = '';
+      status.textContent = 'Надсилаємо…';
+
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          status.style.color = '#2e7d32';
+          status.textContent = 'Дякуємо! Заявку надіслано.';
+          form.reset();
+          setTimeout(function () {
+            var dlg = form.closest('dialog');
+            if (dlg) dlg.close();
+            status.textContent = '';
+          }, 1600);
+          return;
+        }
+        res.json().then(function (data) {
+          var msg = (data && data.errors) ? data.errors.map(function (e) { return e.message; }).join(', ') : 'Спробуйте ще раз.';
+          status.style.color = '#c0392b';
+          status.textContent = 'Помилка: ' + msg;
+        });
+      }).catch(function () {
+        status.style.color = '#c0392b';
+        status.textContent = 'Немає з’єднання з інтернетом. Спробуйте ще раз.';
+      });
+    });
+  }
+
+  wireAjaxForm(document.querySelector('#contactModal form'));
+  wireAjaxForm(orderForm);
+
   /* ——— language switcher ——— */
   var langButtons = document.querySelectorAll('[data-lang]');
   var heroBg = document.getElementById('heroBg');
