@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bambuk Craft — крафтові сувеніри зі Львова</title>
+<meta name="description" content="Ручна робота зі Львова: магніти, статуетки, посуд і декор із дерева, кераміки та металу. Власне виробництво з 2006 року.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          forest:'#14231a', forestdeep:'#0b160e', cream:'#f5f0e4',
+          gold:'#c9a227', goldsoft:'#ddb256', clay:'#8a5a3d', ink:'#241c14',
+        },
+        fontFamily: { serif:['Fraunces','serif'], sans:['Inter','sans-serif'] },
+      }
+    }
+  }
+</script>
+<style>
+  html{ scroll-behavior:smooth; }
+  body{ -webkit-font-smoothing:antialiased; }
+
+  /* ——— 16:9 slide rhythm — one screen ≈ one slide, with room for content ——— */
+  .slide{
+    display:flex; align-items:center;
+  }
+  @media (min-width:768px){
+    .slide{ min-height: clamp(680px, 56.25vw, 1000px); }
+  }
+  .slide.tight{ min-height: clamp(560px, 42vw, 760px); }
+  @media (max-width:820px){ .slide, .slide.tight{ min-height:0; } }
+
+  /* ——— signature: carved banner ribbon ——— */
+  .ribbon{ clip-path:polygon(0 0, 100% 0, 96% 50%, 100% 100%, 0 100%, 4% 50%); }
+
+  .eyebrow{ display:inline-flex; align-items:center; gap:.55rem;
+    font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+  .eyebrow::before{ content:''; width:6px; height:6px; border-radius:999px; background:#c9a227; }
+
+  .pill{ display:inline-flex; align-items:baseline; gap:.4rem;
+    border:1px solid rgba(36,28,20,.14); border-radius:999px;
+    padding:.45rem .95rem; font-size:13px; color:rgba(36,28,20,.62);
+    background:#fff; white-space:nowrap; }
+  .pill b{ font-size:15px; font-weight:700; color:#241c14; }
+  .pill.is-gold b{ color:#a37f14; }
+
+  .spec{ display:flex; align-items:center; gap:.6rem; font-size:14.5px; color:rgba(36,28,20,.75); }
+  .spec::before{ content:''; flex:none; width:15px; height:15px; border-radius:999px;
+    background:rgba(201,162,39,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a37f14' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; }
+  .spec.is-extra::before{
+    background:rgba(138,90,61,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a5a3d' stroke-width='3.4' stroke-linecap='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E") center/9px no-repeat; }
+
+  /* ——— buttons ——— */
+  .btn{ display:inline-flex; align-items:center; gap:.55rem; border:none; cursor:pointer;
+    font-family:Inter,sans-serif; font-size:14px; font-weight:600; letter-spacing:.02em; line-height:1;
+    padding:.85rem 1.6rem; border-radius:999px; transition:transform .3s cubic-bezier(.2,.6,.2,1), background .3s ease, box-shadow .3s ease; }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-gold{ background:#c9a227; color:#0b160e; box-shadow:0 8px 20px -10px rgba(201,162,39,.9); }
+  .btn-gold:hover{ background:#ddb256; }
+  .btn-ink{ background:#241c14; color:#f5f0e4; }
+  .btn-ink:hover{ background:#3a2d20; }
+  .btn-outline{ background:transparent; color:#241c14; border:1px solid rgba(36,28,20,.22); }
+  .btn-outline:hover{ border-color:#c9a227; color:#a37f14; }
+  .btn-light{ background:#f5f0e4; color:#14231a; }
+  .btn-light:hover{ background:#fff; }
+
+  /* ——— zoomable photo ——— */
+  .zoom{ cursor:zoom-in; }
+
+  /* ——— header: readable over the dark hero photo AND over light sections ——— */
+  #siteHeader{ transition:background .35s ease, border-color .35s ease, backdrop-filter .35s ease; }
+  #siteHeader::before{
+    content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background:linear-gradient(to bottom, rgba(11,22,14,.62), rgba(11,22,14,.12));
+    transition:opacity .35s ease;
+  }
+  #siteHeader.is-solid{ background:rgba(255,255,255,.94); backdrop-filter:blur(10px); border-bottom:1px solid rgba(36,28,20,.09); }
+  #siteHeader.is-solid::before{ opacity:0; }
+
+  .hdr-fg{ color:#f5f0e4; transition:color .35s ease; }
+  #siteHeader.is-solid .hdr-fg{ color:#241c14; }
+  .hdr-dim{ color:rgba(245,240,228,.72); transition:color .35s ease; }
+  #siteHeader.is-solid .hdr-dim{ color:rgba(36,28,20,.5); }
+  .hdr-ico{ background:rgba(245,240,228,.14); color:#f5f0e4; transition:background .3s ease, color .35s ease; }
+  .hdr-ico:hover{ background:rgba(245,240,228,.26); }
+  #siteHeader.is-solid .hdr-ico{ background:rgba(36,28,20,.07); color:#241c14; }
+  #siteHeader.is-solid .hdr-ico:hover{ background:rgba(36,28,20,.13); }
+  .hdr-sep{ background:rgba(245,240,228,.28); transition:background .35s ease; }
+  #siteHeader.is-solid .hdr-sep{ background:rgba(36,28,20,.14); }
+
+  .lang-btn{ color:rgba(245,240,228,.6); transition:color .3s ease, background .3s ease; }
+  .lang-btn:hover{ color:#f5f0e4; }
+  .lang-btn.is-active{ color:#f5f0e4; background:rgba(245,240,228,.18); }
+  #siteHeader.is-solid .lang-btn{ color:rgba(36,28,20,.45); }
+  #siteHeader.is-solid .lang-btn:hover{ color:#241c14; }
+  #siteHeader.is-solid .lang-btn.is-active{ color:#241c14; background:rgba(36,28,20,.09); }
+
+  /* ——— motion ——— */
+  @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.8) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(8deg)}}
+  @keyframes kenburns{from{transform:scale(1.06)}to{transform:scale(1.16)}}
+  @keyframes drip{0%{transform:scaleY(.25);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}
+    50.01%{transform-origin:bottom}100%{transform:scaleY(.25);transform-origin:bottom}}
+  .reveal{opacity:0;transform:translateY(4%);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .lift{transition:transform .4s cubic-bezier(.2,.6,.2,1),box-shadow .4s ease}
+  .lift:hover{transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(20,35,26,.32)}
+
+  /* ——— dialogs ——— */
+  dialog{ border:none; padding:0; background:transparent; max-width:100vw; max-height:100vh; }
+  dialog::backdrop{ background:rgba(11,22,14,.82); backdrop-filter:blur(3px); }
+  dialog[open]{ animation:pop .28s cubic-bezier(.2,.7,.3,1); }
+  @keyframes pop{ from{opacity:0;transform:translateY(14px) scale(.98)} to{opacity:1;transform:none} }
+  .field{ width:100%; border:1px solid rgba(36,28,20,.18); border-radius:8px;
+    padding:.7rem .9rem; font-size:14.5px; font-family:Inter,sans-serif; color:#241c14; background:#fff; }
+  .field:focus{ outline:none; border-color:#c9a227; box-shadow:0 0 0 3px rgba(201,162,39,.16); }
+  .field-invalid{ border-color:#c0392b !important; }
+  .field-invalid:focus{ box-shadow:0 0 0 3px rgba(192,57,43,.14); }
+  .lbl-invalid{ color:#c0392b !important; }
+  fieldset.group-invalid .choice{ border-color:rgba(192,57,43,.4); }
+  .lbl{ display:block; font-size:12.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:rgba(36,28,20,.5); margin-bottom:.4rem; }
+  .lbl .opt{ text-transform:none; letter-spacing:0; font-weight:400; color:rgba(36,28,20,.38); }
+  .choice{ display:flex; align-items:center; gap:.5rem; border:1px solid rgba(36,28,20,.16);
+    border-radius:999px; padding:.5rem .9rem; font-size:13.5px; cursor:pointer; transition:all .2s ease; }
+  .choice:has(input:checked){ border-color:#c9a227; background:rgba(201,162,39,.1); color:#241c14; font-weight:600; }
+  .choice input{ accent-color:#c9a227; }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    [style*="animation"]{animation:none!important}
+    .lift:hover,.btn:hover{transform:none}
+    dialog[open]{animation:none}
+  }
+</style>
+</head>
+<body class="bg-white font-sans text-ink">
+
+<!-- ══════════ STICKY HEADER ══════════ -->
+<header id="siteHeader" class="fixed top-0 inset-x-0 z-50 isolate">
+  <div class="h-[86px] px-4 md:px-[3vw] flex items-center gap-2 md:gap-4">
+
+    <!-- left: logo — swaps white/black with header state via JS -->
+    <a href="http://craft.bambukstudio.com/" target="_blank" rel="noopener" class="shrink-0" aria-label="Bambuk Craft">
+      <img id="headerLogo" src="images/logo/bambuk-logo-white.svg" alt="Bambuk Craft" class="h-[52px] md:h-[64px] w-auto">
+    </a>
+
+    <!-- centre: phone (compact on mobile) + socials (desktop only) -->
+    <div class="flex-1 flex items-center justify-center gap-3 md:gap-9 min-w-0">
+      <span class="hdr-fg text-[11px] md:text-[14px] font-semibold tracking-wide whitespace-nowrap" data-i18n="hdr.phone">
+        +38 (068) 348 75 89
+      </span>
+
+      <span class="hdr-sep hidden md:block w-px h-5"></span>
+
+      <div class="hidden md:flex items-center gap-2 md:gap-3">
+        <a href="https://www.instagram.com/bambuk.craft/" target="_blank" rel="noopener" aria-label="Instagram"
+           class="hdr-ico w-9 h-9 grid place-items-center rounded-full">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a id="hdrTelegram" href="https://t.me/bambuk_souvenirs" target="_blank" rel="noopener" aria-label="Telegram"
+           class="hdr-ico w-9 h-9 grid place-items-center rounded-full">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20a1.2 1.2 0 0 1-1.9.7l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9L18 6.6c.4-.3-.1-.5-.6-.2L7 12.8l-4.6-1.4c-1-.3-1-1 .2-1.5l18-6.9c.8-.3 1.5.2 1.3 1.3z"/></svg>
+        </a>
+        <a id="hdrWhatsapp" href="https://chat.whatsapp.com/DtuH8eemWVeCZ7V5ECsZyg" target="_blank" rel="noopener" aria-label="WhatsApp"
+           class="hdr-ico w-9 h-9 grid place-items-center rounded-full hidden">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.2 15 3.8 13.5 3.8 12c0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.7 8.2-8.2 8.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9 0 1.1.8 2.2.9 2.4.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.5-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.2z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- right: language + contact -->
+    <div class="shrink-0 flex items-center gap-1.5 md:gap-5">
+      <div class="flex items-center gap-0.5 md:gap-1 text-[11px] md:text-[12.5px] font-bold tracking-wide" role="group" aria-label="Мова сайту">
+        <button type="button" data-lang="ua" class="lang-btn is-active px-1.5 md:px-2 py-1 rounded-md" aria-current="true">UA</button>
+        <button type="button" data-lang="en" class="lang-btn px-1.5 md:px-2 py-1 rounded-md">EN</button>
+        <button type="button" data-lang="pl" class="lang-btn px-1.5 md:px-2 py-1 rounded-md">PL</button>
+        <button type="button" data-lang="cz" class="lang-btn px-1.5 md:px-2 py-1 rounded-md">CZ</button>
+      </div>
+
+      <span class="hdr-sep hidden md:block w-px h-5"></span>
+
+      <button data-open="contactModal" class="btn btn-gold !py-2.5 !px-3 md:!px-5 !text-[13px]">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5h16v14H4z"/><path d="m4 6 8 6 8-6"/></svg>
+        <span class="hidden sm:inline" data-i18n="nav.contact">Сконтактувати</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ 01 · HERO ══════════ -->
+<section class="relative min-h-screen flex flex-col justify-between overflow-hidden isolate pt-[86px]">
+  <div id="heroParallax" class="absolute inset-x-0 -z-20" style="top:-6%; height:112%;">
+    <img id="heroBg" src="images/01-hero.webp"
+         data-bg-ua="images/01-hero.webp" data-bg-en="images/01-hero-alt.webp" data-bg-pl="images/01-hero-alt.webp" data-bg-cz="images/01-hero-alt.webp"
+         alt="Керамічна прикраса-лев на ялинових гілках" class="w-full h-full object-cover object-[28%_center] md:object-center" style="animation:kenburns 20s ease-out forwards">
+  </div>
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-forestdeep/55 via-forestdeep/10 to-forestdeep/75"></div>
+  <div class="absolute inset-0 -z-10 bg-gradient-to-r from-forestdeep/50 via-transparent to-transparent"></div>
+
+  <div class="flex-1 flex items-end justify-between gap-10 px-6 md:px-[5vw] pb-20 md:pb-24">
+    <div class="flex md:items-end gap-1.5 text-cream">
+      <img src="images/lviv-logo-white.webp" alt="Львів" class="h-[52px] md:h-[96px] w-auto opacity-95">
+      <div class="text-[11px] md:text-[13px] leading-snug pb-1" data-i18n-html="brand.lviv"><b class="text-gold">Крафтові</b> витвори<br>зі Львова</div>
+    </div>
+
+    <div class="max-w-xl text-right ml-auto">
+      <h1 class="font-serif font-normal text-cream leading-[0.95] text-[42px] md:text-[80px]">
+        <span data-i18n="hero.t1">Сувеніри</span>
+        <span class="block italic font-light text-gold">
+          <span data-i18n="hero.t2">сяють файно</span>
+          <span class="inline-block w-[0.5em] align-middle" style="animation:twinkle 2.6s ease-in-out infinite">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14.2 9.8 L22 12 L14.2 14.2 L12 22 L9.8 14.2 L2 12 L9.8 9.8 Z" fill="#C9A227"/></svg>
+          </span>
+        </span>
+      </h1>
+      <p class="mt-6 ml-auto max-w-[32ch] text-cream/80 text-base md:text-lg" data-i18n="hero.sub">Ручна робота, вирізьблена з характером — керамічні прикраси, народжені у львівських майстернях.</p>
+    </div>
+  </div>
+
+  <div class="absolute bottom-28 md:bottom-32 left-0 right-0 flex justify-center pointer-events-none">
+    <div class="flex flex-col items-center gap-2 text-cream/55 text-[10px] tracking-[0.22em] uppercase">
+      <span class="w-px h-8 bg-gradient-to-b from-gold to-transparent" style="animation:drip 1.8s ease-in-out infinite"></span>
+      <span class="hidden md:inline" data-i18n="hero.scroll">Гортай</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ bridge card (sits on the cream, no stray white band) ══════════ -->
+<div class="bg-cream">
+  <div class="px-6 md:px-[8vw] -translate-y-14 md:-translate-y-16 mb-[-3rem] md:mb-[-3.5rem]">
+    <div class="reveal bg-white rounded-lg shadow-2xl shadow-black/20 px-7 md:px-12 py-8 md:py-10 flex flex-col md:flex-row flex-wrap items-start md:items-center justify-start md:justify-between gap-x-10 gap-y-5 md:gap-y-6">
+      <div class="flex items-center gap-3.5">
+        <span class="font-serif text-[36px] md:text-[40px] leading-none text-gold">2006</span>
+        <span class="text-[14.5px] text-ink/60 leading-tight" data-i18n-html="br.founded">рік<br>заснування</span>
+      </div>
+      <span class="hidden md:block w-px h-11 bg-ink/10"></span>
+      <div class="flex items-center gap-3.5">
+        <span class="font-serif text-[36px] md:text-[40px] leading-none text-gold">560+</span>
+        <span class="text-[14.5px] text-ink/60 leading-tight" data-i18n-html="br.works">витворів<br>мистецтва</span>
+      </div>
+      <span class="hidden md:block w-px h-11 bg-ink/10"></span>
+      <div class="flex items-center gap-3.5">
+        <span class="font-serif text-[36px] md:text-[40px] leading-none text-gold">23</span>
+        <span class="text-[14.5px] text-ink/60 leading-tight" data-i18n-html="br.regions">регіони<br>України</span>
+      </div>
+      <span class="hidden md:block w-px h-11 bg-ink/10"></span>
+      <div class="flex items-center gap-3.5">
+        <span class="font-serif text-[36px] md:text-[40px] leading-none text-gold">7</span>
+        <span class="text-[14.5px] text-ink/60 leading-tight" data-i18n-html="br.countries">країн<br>представлення</span>
+      </div>
+      <span class="hidden md:block w-px h-11 bg-ink/10"></span>
+      <div class="flex items-center gap-2.5 text-[13px] tracking-[0.08em] uppercase text-ink/50">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span data-i18n="br.loc">Львів, Україна</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 02 · МІСІЯ ══════════ -->
+<section class="slide bg-cream px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+    <div class="order-2 md:order-1 reveal">
+      <span class="eyebrow text-clay/80 mb-6">Bambuk Craft</span>
+      <h2 class="font-serif text-[30px] md:text-[42px] leading-[1.14]" data-i18n-html="mis.h"><b class="font-semibold">Ми створюємо</b> унікальні вироби з дерева, кераміки та металу, які містять у собі <span class="italic text-clay">частинку досвіду</span> знакового місця</h2>
+      <p class="mt-7 max-w-[46ch] text-[15.5px] leading-relaxed text-ink/65" data-i18n="mis.p1">Якщо в сувенір закласти історію, символіку та сенси — він стає маленьким носієм емоційного досвіду, а не просто річчю на полиці.</p>
+      <p class="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-ink/65" data-i18n-html="mis.p2">З таким сувеніром можна зберігати пам'ять про спадщину: архітектурні пам'ятки, традиції, персонажів і звичаї. У цьому і є <b class="font-semibold text-ink">справжня цінність</b> таких виробів.</p>
+      <a href="https://drive.google.com/file/d/1Pa8uoobUATAZEV2hic2Re_35L6fwnCEl/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-ink mt-9">
+        <span data-i18n="btn.catalog">Каталог</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="order-1 md:order-2 relative reveal" data-d="1">
+      <div class="rounded-lg overflow-hidden shadow-xl aspect-[4/4.4] md:aspect-[9/8]">
+        <img src="images/02-mission-bg-v2.webp" alt="Майстриня розписує вручну мініатюри Львова" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute -bottom-5 -left-4 md:-left-8 bg-forest text-cream rounded-md px-5 py-4 shadow-xl max-w-[215px]">
+        <p class="text-[13px] leading-snug" data-i18n-html="mis.badge">Творимо з <b class="text-gold">2006 року</b> — кожен виріб проходить руки львівських майстрів</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 03 · АВТОРСЬКИЙ ДИЗАЙН ══════════ -->
+<section class="slide bg-white px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-[1fr_1.06fr] gap-12 md:gap-24 items-center">
+    <div class="relative reveal">
+      <div class="rounded-lg overflow-hidden shadow-xl aspect-[4/5] bg-cream">
+        <img src="images/03-lion-medallion.webp" alt="Гіпсовий лев із короною та стрічкою LVIV" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute -right-4 md:-right-10 bottom-8 w-[45%] max-w-[230px] rounded-md overflow-hidden shadow-2xl border-4 border-white lift zoom">
+        <img loading="lazy" decoding="async" src="images/03-hand-painting.webp" alt="Ручний розпис виробів пензлем" class="w-full h-full object-cover aspect-[16/11]">
+      </div>
+    </div>
+
+    <div class="reveal md:pl-6" data-d="1">
+      <span class="eyebrow text-clay/80" data-i18n="ey.ideally">Ідейно</span>
+      <p class="mt-1.5 text-[12px] font-bold tracking-[0.16em] uppercase text-gold" data-i18n="ey.wecreate">Ми творимо</p>
+      <h2 class="mt-6 font-serif text-[36px] md:text-[52px] leading-[1.08]">
+        <span data-i18n-html="s3.h">Все з авторським <span class="italic text-clay">дизайном</span></span>
+        <span class="inline-block w-[0.42em] align-middle ml-1" style="animation:twinkle 2.6s ease-in-out infinite">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14.2 9.8 L22 12 L14.2 14.2 L12 22 L9.8 14.2 L2 12 L9.8 9.8 Z" fill="#C9A227"/></svg>
+        </span>
+      </h2>
+      <p class="mt-7 max-w-[44ch] text-[16.5px] leading-relaxed text-ink/65">
+        <span data-i18n-html="s3.p">Професійні дизайнери, митці та випускники Львівської <b class="font-semibold text-ink">академії мистецтв</b> вкладають свій досвід у кожен виріб.</span>
+      </p>
+      <div class="mt-8 flex flex-wrap gap-2.5">
+        <span class="pill" data-i18n="s3.pill1">Ескіз</span>
+        <span class="pill" data-i18n="s3.pill2">Скульптурна майстер-модель</span>
+        <span class="pill" data-i18n="s3.pill3">Ручний розпис</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1Pa8uoobUATAZEV2hic2Re_35L6fwnCEl/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-ink mt-9">
+        <span data-i18n="btn.catalog">Каталог</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 04 · МАТЕРІАЛІЗОВАНІ ЗНАКИ ══════════ -->
+<section class="slide bg-cream px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full">
+    <div class="max-w-2xl reveal">
+      <span class="eyebrow text-clay/80" data-i18n="ey.whatwedo">Що ми робимо</span>
+      <h2 class="mt-5 font-serif text-[32px] md:text-[46px] leading-[1.1]">
+        <span data-i18n-html="s4.h">Матеріалізовані знаки <span class="block italic font-light text-clay">місця, культури чи явища</span></span>
+      </h2>
+      <p class="mt-5 max-w-[44ch] text-[15.5px] leading-relaxed text-ink/65">
+        <span data-i18n-html="s4.p">Архітектурні репліки, фігурки архетипів та побутові <b class="font-semibold text-ink">носії сенсу</b>.</span>
+      </p>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-[0.95fr_1.25fr] gap-8 md:gap-10 items-stretch">
+      <div class="reveal rounded-lg overflow-hidden shadow-xl min-h-[320px] md:min-h-0">
+        <img src="images/04-building-stump.webp" alt="Кольорова архітектурна мініатюра на пеньку" class="w-full h-full object-cover">
+      </div>
+
+      <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 md:gap-4 content-center">
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom"><img loading="lazy" decoding="async" src="images/04-lviv-magnet.webp" alt="Магніт LVIV" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="1"><img loading="lazy" decoding="async" src="images/04-bremen-magnet.webp" alt="Магніт Bremen" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="2"><img loading="lazy" decoding="async" src="images/04-ukraine-lettering.webp" alt="Магніт Ukraine" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="3"><img loading="lazy" decoding="async" src="images/04-borsch-mini.webp" alt="Мініатюра з борщем" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom"><img loading="lazy" decoding="async" src="images/04-krakow-dragon.webp" alt="Магніт Krakow" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="1"><img loading="lazy" decoding="async" src="images/04-tallinn-boot.webp" alt="Магніт Tallinn" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="2"><img loading="lazy" decoding="async" src="images/04-tallinn-viking.webp" alt="Магніт Tallinn" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="3"><img loading="lazy" decoding="async" src="images/04-gdansk.webp" alt="Магніт Gdansk" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom"><img loading="lazy" decoding="async" src="images/04-trident-pin.webp" alt="Пам'ятний знак" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="1"><img loading="lazy" decoding="async" src="images/04-sopot.webp" alt="Магніт Sopot" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="2"><img loading="lazy" decoding="async" src="images/04-ukraine-map.webp" alt="Магніт-мапа України" class="w-full h-full object-cover"></div>
+        <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="3"><img loading="lazy" decoding="async" src="images/04-lion-grid.webp" alt="Полиця з магнітами-левами" class="w-full h-full object-cover scale-[1.4]"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 05 · ВИРОБНИЦТВО ══════════ -->
+<section class="slide bg-white px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-[1fr_1.02fr] gap-12 md:gap-20 items-center">
+    <div class="relative reveal">
+      <div class="rounded-lg overflow-hidden shadow-xl aspect-square">
+        <img src="images/05-production-grid.webp" alt="Ряди нерозфарбованих архітектурних мініатюр" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute -right-4 md:-right-8 -bottom-6 w-[46%] max-w-[240px] rounded-md overflow-hidden shadow-2xl border-4 border-white lift zoom">
+        <img loading="lazy" decoding="async" src="images/05-hand-painting2.webp" alt="Розпис виробів вручну" class="w-full h-full object-cover aspect-[16/10]">
+      </div>
+    </div>
+
+    <div class="reveal md:pl-4" data-d="1">
+      <span class="eyebrow text-clay/80" data-i18n="ey.turnsout">Виходить</span>
+      <p class="mt-1.5 text-[12px] font-bold tracking-[0.16em] uppercase text-gold" data-i18n="ey.verynice">Дуже гарно</p>
+      <h2 class="mt-6 font-serif text-[34px] md:text-[48px] leading-[1.08]">
+        <span data-i18n-html="s5.h">Виробництво з <span class="italic text-clay">екологічних</span> матеріалів</span>
+      </h2>
+      <p class="mt-7 max-w-[44ch] text-[16px] leading-relaxed text-ink/65">
+        <span data-i18n-html="s5.p">Від малого магнітика до масивної статуетки. Кожен виріб <b class="font-semibold text-ink">розмальовується вручну</b> на власному виробництві — з увагою до деталей, любов'ю та натхненням.</span>
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+        <div class="inline-flex items-start gap-3 rounded-md bg-cream px-5 py-4 max-w-[32ch]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.7" class="mt-0.5 shrink-0"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          <p class="text-[14px] leading-snug text-ink/70" data-i18n-html="s5.note">Живо працюємо, бо у нас є файна <b class="font-semibold text-ink">технологія</b></p>
+        </div>
+        <a href="https://drive.google.com/file/d/1Pa8uoobUATAZEV2hic2Re_35L6fwnCEl/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-ink">
+          <span data-i18n="btn.catalog">Каталог</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 06 · ЗНАКОВІ МІНІАТЮРИ ══════════ -->
+<section class="slide bg-cream px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full">
+    <div class="max-w-2xl reveal">
+      <span class="eyebrow text-clay/80" data-i18n="ey.forms">Об'ємні форми</span>
+      <h2 class="mt-5 font-serif text-[32px] md:text-[46px] leading-[1.1]">
+        <span data-i18n-html="s6.h">Знакові об'ємні мініатюри <span class="block italic font-light text-clay">архітектура, постаті та символи</span></span>
+      </h2>
+      <p class="mt-5 max-w-[44ch] text-[15.5px] leading-relaxed text-ink/65">
+        <span data-i18n-html="s6.p">Архітектурні репліки, статуетки та побутові <b class="font-semibold text-ink">носії сенсу</b>.</span>
+      </p>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-[1fr_1.3fr] gap-8 md:gap-10">
+      <div class="reveal rounded-lg overflow-hidden shadow-xl min-h-[340px]">
+        <img src="images/06-building-stump2.webp" alt="Жовта архітектурна мініатюра Івано-Франківська" class="w-full h-full object-cover">
+      </div>
+
+      <div>
+        <!-- top row: three even squares -->
+        <div class="grid grid-cols-3 gap-4 md:gap-5">
+          <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom"><img loading="lazy" decoding="async" src="images/06-building-hand.webp" alt="Мініатюра церкви на долоні" class="w-full h-full object-cover"></div>
+          <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="1"><img loading="lazy" decoding="async" src="images/06-snail-figurine.webp" alt="Латунна фігурка-візок" class="w-full h-full object-cover"></div>
+          <div class="reveal aspect-square rounded-md overflow-hidden bg-white shadow-sm lift zoom" data-d="2"><img loading="lazy" decoding="async" src="images/06-blacksmith.webp" alt="Металева статуетка коваля" class="w-full h-full object-cover"></div>
+        </div>
+
+        <!-- bottom row: fills the full width like the squares above; object-position is top-anchored so any needed crop comes off the bottom, never the top -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mt-4 md:mt-5">
+          <div class="reveal md:col-span-2 h-[240px] md:h-[380px] rounded-md overflow-hidden bg-white shadow-sm" data-d="1">
+            <img loading="lazy" decoding="async" src="images/06-ukrainian-women.webp" alt="Статуетки жінок у вишиванках" class="w-full h-full object-cover" style="object-position:50% 0%;">
+          </div>
+          <div class="reveal h-[240px] md:h-[380px] rounded-md overflow-hidden bg-white shadow-sm" data-d="2">
+            <img loading="lazy" decoding="async" src="images/06-violin-man.webp" alt="Статуетка музиканта" class="w-full h-full object-cover" style="object-position:50% 0%;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 07 · КАТЕГОРІЇ ══════════ -->
+<section class="slide tight relative bg-white px-6 md:px-[8vw] py-10 md:py-20 overflow-hidden">
+  <img loading="lazy" decoding="async" src="images/07-leaf-texture.webp" alt="" aria-hidden="true" class="pointer-events-none select-none absolute inset-x-0 bottom-0 w-full object-cover opacity-70" style="mask-image:linear-gradient(to top,#000 0%,transparent 100%);-webkit-mask-image:linear-gradient(to top,#000 0%,transparent 100%)">
+
+  <div class="relative w-full">
+    <div class="max-w-2xl reveal">
+      <span class="eyebrow text-clay/80" data-i18n="ey.range">Асортимент</span>
+      <h2 class="mt-4 font-serif text-[32px] md:text-[44px] leading-[1.1]">
+        <span data-i18n-html="s7.h">Чотири напрями, <span class="italic text-clay">десятки форм</span></span>
+      </h2>
+    </div>
+
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+      <div class="reveal bg-white/85 backdrop-blur-sm rounded-lg border border-ink/8 p-7 shadow-sm">
+        <h3 class="font-serif text-[24px] text-clay" data-i18n="cat.magnets">Магніти</h3>
+        <span class="mt-4 block w-8 h-px bg-gold"></span>
+        <ul class="mt-5 space-y-2.5 text-[14.5px] text-ink/60">
+          <li data-i18n="m.1">Туристичні</li><li data-i18n="m.2">Пам'ятні</li><li data-i18n="m.3">Емоційні</li><li data-i18n="m.4">Функціональні</li>
+          <li class="font-semibold text-ink" data-i18n="m.5">Корпоративні</li>
+        </ul>
+      </div>
+      <div class="reveal bg-white/85 backdrop-blur-sm rounded-lg border border-ink/8 p-7 shadow-sm" data-d="1">
+        <h3 class="font-serif text-[24px] text-clay" data-i18n="cat.figurines">Статуетки</h3>
+        <span class="mt-4 block w-8 h-px bg-gold"></span>
+        <ul class="mt-5 space-y-2.5 text-[14.5px] text-ink/60">
+          <li data-i18n="f.1">Персонажі</li><li data-i18n="f.2">Архітектура</li><li data-i18n="f.3">Емоційні</li>
+          <li class="font-semibold text-ink" data-i18n="f.4">Корпоративні</li><li data-i18n="f.5">Історичні</li>
+        </ul>
+      </div>
+      <div class="reveal bg-white/85 backdrop-blur-sm rounded-lg border border-ink/8 p-7 shadow-sm" data-d="2">
+        <h3 class="font-serif text-[24px] text-clay" data-i18n="cat.tableware">Посуд</h3>
+        <span class="mt-4 block w-8 h-px bg-gold"></span>
+        <ul class="mt-5 space-y-2.5 text-[14.5px] text-ink/60">
+          <li data-i18n="t.1">Кружки</li><li data-i18n="t.2">Келихи</li><li data-i18n="t.3">Тарілки</li><li data-i18n="t.4">Підноси</li><li class="font-semibold text-ink" data-i18n="t.5">Попільнички</li>
+        </ul>
+      </div>
+      <div class="reveal bg-white/85 backdrop-blur-sm rounded-lg border border-ink/8 p-7 shadow-sm" data-d="3">
+        <h3 class="font-serif text-[24px] text-clay" data-i18n="cat.decor">Декор</h3>
+        <span class="mt-4 block w-8 h-px bg-gold"></span>
+        <ul class="mt-5 space-y-2.5 text-[14.5px] text-ink/60">
+          <li class="font-semibold text-ink" data-i18n="d.1">Ключниці</li><li data-i18n="d.2">Ялинкові прикраси</li><li data-i18n="d.3">Свищики</li>
+          <li class="font-semibold text-ink" data-i18n="d.4">Арт корки</li><li data-i18n="d.5">Брошки</li><li data-i18n="d.6">Тарілочки</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 08 · КВІТКОВИЙ ЛЕВ ══════════ -->
+<section class="slide bg-white px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-[1.12fr_1fr] gap-12 md:gap-16 items-center">
+    <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 md:gap-5 reveal sm:items-stretch">
+      <div class="sm:col-span-3 aspect-[4/5] sm:aspect-auto rounded-lg overflow-hidden bg-cream shadow-xl">
+        <img src="images/08-lion-blue.webp" alt="Квітковий лев у рожевих квітах" class="w-full h-full object-cover">
+      </div>
+      <div class="sm:col-span-2 grid grid-cols-2 sm:flex sm:flex-col gap-4 md:gap-5">
+        <div class="aspect-square sm:aspect-auto sm:flex-1 rounded-lg overflow-hidden bg-cream shadow-lg lift zoom">
+          <img loading="lazy" decoding="async" src="images/08-lion-brown.webp" alt="Квітковий лев у теплих тонах" class="w-full h-full object-cover">
+        </div>
+        <div class="aspect-square sm:aspect-auto sm:flex-1 rounded-lg overflow-hidden bg-cream shadow-lg lift zoom">
+          <img loading="lazy" decoding="async" src="images/08-lion-green.webp" alt="Квітковий лев у синіх квітах" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" data-d="1">
+      <div class="flex items-center gap-4 flex-wrap">
+        <span class="eyebrow text-clay/80" data-i18n="ey.tourmag">Туристичний магніт</span>
+        <img loading="lazy" decoding="async" src="images/08-example-stamp.webp" alt="Приклад" class="h-24 w-auto">
+      </div>
+      <h2 class="mt-6 font-serif text-[38px] md:text-[54px] leading-[1.03] text-clay" data-i18n="s8.h">Квітковий лев</h2>
+      <p class="mt-4 max-w-[36ch] text-[16px] leading-relaxed text-ink/65">
+        <span data-i18n="s8.p">Легендарний сувенір на вулицях славного міста лева.</span>
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-2.5">
+        <span class="pill is-gold"><b>від 54 ₴</b> <span data-i18n="p.involume">за штуку в тиражі</span></span>
+      </div>
+
+      <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-5 max-w-md">
+        <div>
+          <dt class="text-[12px] uppercase tracking-[0.1em] text-ink/40" data-i18n="lb.size">Розмір</dt>
+          <dd class="mt-1.5 text-[15px] font-semibold">60 × 70 × 15 мм</dd>
+        </div>
+        <div>
+          <dt class="text-[12px] uppercase tracking-[0.1em] text-ink/40" data-i18n="lb.material">Матеріал</dt>
+          <dd class="mt-1.5 text-[15px] font-semibold" data-i18n="v.gypsum">Декоративний гіпсополімер</dd>
+        </div>
+      </dl>
+
+      <div class="mt-8 pt-6 border-t border-ink/10">
+        <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40 mb-3" data-i18n="s8.other">Інші форми в тій же техніці</p>
+        <div class="flex flex-wrap gap-2">
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-1.webp" alt="Приклад виробу в тій же техніці — 1" class="h-[68px] w-auto"></div>
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-2.webp" alt="Приклад виробу в тій же техніці — 2" class="h-[68px] w-auto"></div>
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-3.webp" alt="Приклад виробу в тій же техніці — 3" class="h-[68px] w-auto"></div>
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-4.webp" alt="Приклад виробу в тій же техніці — 4" class="h-[68px] w-auto"></div>
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-5.webp" alt="Приклад виробу в тій же техніці — 5" class="h-[68px] w-auto"></div>
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-6.webp" alt="Приклад виробу в тій же техніці — 6" class="h-[68px] w-auto"></div>
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-7.webp" alt="Приклад виробу в тій же техніці — 7" class="h-[68px] w-auto"></div>
+          <div class="rounded-md overflow-hidden zoom cursor-zoom-in bg-cream"><img loading="lazy" decoding="async" src="images/08-technique-8.webp" alt="Приклад виробу в тій же техніці — 8" class="h-[68px] w-auto"></div>
+        </div>
+      </div>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <button data-open="orderModal" class="btn btn-gold">
+          <span data-i18n="btn.order">Замовити</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </button>
+        <a href="https://drive.google.com/file/d/1Pa8uoobUATAZEV2hic2Re_35L6fwnCEl/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="btn.catalog">Каталог</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 09 · КРАФТОВИЙ МАГНІТ ══════════ -->
+<section class="slide bg-cream px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full">
+    <div class="grid md:grid-cols-[1fr_1.05fr] gap-12 md:gap-20 items-center">
+      <div class="reveal rounded-lg overflow-hidden bg-white shadow-xl aspect-square">
+        <img src="images/09-magnet-main.webp" alt="Синьо-золотий магніт-лев LVIV" class="w-full h-full object-cover">
+      </div>
+
+      <div class="reveal md:pl-4" data-d="1">
+        <span class="eyebrow text-clay/80" data-i18n="ey.turnkey">Під ключ</span>
+        <h2 class="mt-5 font-serif text-[34px] md:text-[48px] leading-[1.06]" data-i18n="s9.h">Крафтовий магніт</h2>
+        <p class="mt-4 text-[15.5px] text-ink/55">Розмір — <b class="font-semibold text-ink">60 × 70 × 15 мм</b></p>
+
+        <div class="mt-8 grid sm:grid-cols-2 gap-x-10 gap-y-6">
+          <div>
+            <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40 mb-3.5" data-i18n="col.included">Входить у роботу</p>
+            <ul class="space-y-2.5">
+              <li class="spec" data-i18n="sp.idea">Розробка ідеї</li>
+              <li class="spec" data-i18n="sp.model">Пластилінова модель</li>
+              <li class="spec" data-i18n="sp.cast">Перша виливка</li>
+              <li class="spec" data-i18n="sp.color">Кольорове рішення</li>
+              <li class="spec" data-i18n="sp.master">Майстер екземпляр</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40 mb-3.5" data-i18n="col.extra">Додатково</p>
+            <ul class="space-y-2.5">
+              <li class="spec is-extra" data-i18n="sp.variations">Варіації ідей</li>
+              <li class="spec is-extra" data-i18n="sp.coloropts">Опції по кольору</li>
+              <li class="spec is-extra" data-i18n="sp.material">Гіпсополімер</li>
+              <li class="spec is-extra" data-i18n="sp.from1">Тираж від 1 шт.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-9 flex flex-wrap gap-2.5">
+          <span class="pill is-gold"><b>від 54 ₴</b> <span data-i18n="p.involume">за штуку в тиражі</span></span>
+          <span class="pill"><b>28</b> <span data-i18n="p.days">днів реалізації</span></span>
+        </div>
+
+        <div class="mt-9 flex flex-wrap gap-3">
+          <button data-open="orderModal" class="btn btn-gold">
+            <span data-i18n="btn.order">Замовити</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </button>
+          <a href="https://drive.google.com/file/d/1Pa8uoobUATAZEV2hic2Re_35L6fwnCEl/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="btn.catalog">Каталог</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 grid grid-cols-3 gap-4 md:gap-5">
+      <div class="reveal rounded-md overflow-hidden shadow-md aspect-[4/3] lift zoom"><img loading="lazy" decoding="async" src="images/09-life-1.webp" alt="Магніт на холодильнику з нотатками" class="w-full h-full object-cover" style="object-position:50% 30%;"></div>
+      <div class="reveal rounded-md overflow-hidden shadow-md aspect-[4/3] lift zoom" data-d="1"><img loading="lazy" decoding="async" src="images/09-life-2.webp" alt="Магніт на стійці рецепції готелю" class="w-full h-full object-cover scale-[1.15]" style="object-position:40% 58%;"></div>
+      <div class="reveal rounded-md overflow-hidden shadow-md aspect-[4/3] lift zoom" data-d="2"><img loading="lazy" decoding="async" src="images/09-life-3.webp" alt="Магніт на мінібарі в готельному номері" class="w-full h-full object-cover scale-[1.15]" style="object-position:65% 52%;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 10 · МІНІАТЮРИ ТА СТАТУЕТКИ ══════════ -->
+<section class="slide bg-white px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-[1.1fr_1fr] gap-12 md:gap-20 items-center">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 reveal">
+      <div class="grid grid-cols-3 sm:flex sm:flex-col gap-4 md:gap-5">
+        <div class="aspect-square sm:aspect-auto sm:flex-1 rounded-lg overflow-hidden bg-cream shadow-lg lift zoom"><img loading="lazy" decoding="async" src="images/10-dark-building.webp" alt="Бронзова архітектурна репліка" class="w-full h-full object-cover"></div>
+        <div class="aspect-square sm:aspect-auto sm:flex-1 rounded-lg overflow-hidden bg-cream shadow-lg lift zoom"><img loading="lazy" decoding="async" src="images/10-house-hand-grid.webp" alt="Мініатюрна хатка на долоні" class="w-full h-full object-cover"></div>
+        <div class="aspect-square sm:aspect-auto sm:flex-1 rounded-lg overflow-hidden bg-cream shadow-lg lift zoom"><img loading="lazy" decoding="async" src="images/10-lion-row.webp" alt="Ряд квіткових левів" class="w-full h-full object-cover"></div>
+      </div>
+      <div class="sm:col-span-2 aspect-[4/3] sm:aspect-auto rounded-lg overflow-hidden bg-cream shadow-xl">
+        <img src="images/10-folk-figures.webp" alt="Статуетки козака та дівчини у вишиванках" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <div class="reveal md:pl-4" data-d="1">
+      <span class="eyebrow text-clay/80" data-i18n="ey.turnkey">Під ключ</span>
+      <h2 class="mt-5 font-serif text-[32px] md:text-[44px] leading-[1.06]" data-i18n="s10.h">Мініатюри та статуетки-репліки</h2>
+      <p class="mt-4 text-[15.5px] text-ink/55">Розмір — <b class="font-semibold text-ink">50 × 50 × 100 мм</b></p>
+
+      <div class="mt-8 grid sm:grid-cols-2 gap-x-10 gap-y-6">
+        <div>
+          <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40 mb-3.5" data-i18n="col.included">Входить у роботу</p>
+          <ul class="space-y-2.5">
+            <li class="spec" data-i18n="sp.idea">Розробка ідеї</li>
+            <li class="spec" data-i18n="sp.model">Пластилінова модель</li>
+            <li class="spec" data-i18n="sp.cast">Перша виливка</li>
+            <li class="spec" data-i18n="sp.color">Кольорове рішення</li>
+            <li class="spec" data-i18n="sp.master">Майстер екземпляр</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40 mb-3.5" data-i18n="col.extra">Додатково</p>
+          <ul class="space-y-2.5">
+            <li class="spec is-extra" data-i18n="sp.variations">Варіації ідей</li>
+            <li class="spec is-extra" data-i18n="sp.coloropts">Опції по кольору</li>
+            <li class="spec is-extra" data-i18n="sp.material">Гіпсополімер</li>
+            <li class="spec is-extra" data-i18n="sp.from1">Тираж від 1 шт.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-9 flex flex-wrap gap-2.5">
+        <span class="pill is-gold"><b>від 150 ₴</b> <span data-i18n="p.involume">за штуку в тиражі</span></span>
+        <span class="pill"><b>28</b> <span data-i18n="p.days">днів реалізації</span></span>
+      </div>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <button data-open="orderModal" class="btn btn-gold">
+          <span data-i18n="btn.order">Замовити</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </button>
+        <a href="https://drive.google.com/file/d/1Pa8uoobUATAZEV2hic2Re_35L6fwnCEl/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="btn.catalog">Каталог</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 11 · ДЕКОРАТИВНІ ЕЛЕМЕНТИ ══════════ -->
+<section class="slide bg-forest text-cream px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-[1fr_1.25fr] gap-12 md:gap-16 items-center">
+    <div class="reveal">
+      <span class="eyebrow text-goldsoft" data-i18n="ey.home">Для дому</span>
+      <h2 class="mt-5 font-serif text-[32px] md:text-[44px] leading-[1.1]">
+        <span data-i18n-html="s11.h">Декоративні елементи побуту<span class="block italic font-light text-goldsoft text-[26px] md:text-[34px] mt-2">тарілочки, ключниці, пробочки та ялинкові прикраси</span></span>
+      </h2>
+      <p class="mt-7 max-w-[40ch] text-[15.5px] leading-relaxed text-cream/70">
+        <span data-i18n-html="s11.p">Речі, що радують око, торкають душу та <b class="font-semibold text-cream">бережуть пам'ять</b>.</span>
+      </p>
+      <div class="mt-8 rounded-lg overflow-hidden shadow-2xl aspect-[4/3]">
+        <img src="images/11-sheep-floral.webp" alt="Керамічна овечка у квітковому вінку" class="w-full h-full object-cover">
+      </div>
+      <a href="https://drive.google.com/file/d/1Pa8uoobUATAZEV2hic2Re_35L6fwnCEl/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-light mt-8">
+        <span data-i18n="btn.catalog">Каталог</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 md:gap-5">
+      <div class="reveal rounded-lg overflow-hidden shadow-xl aspect-[3/4] lift zoom"><img loading="lazy" decoding="async" src="images/11-key-holder.webp" alt="Дерев'яна ключниця з левом" class="w-full h-full object-cover"></div>
+      <div class="reveal rounded-lg overflow-hidden shadow-xl aspect-[3/4] lift zoom" data-d="1"><img loading="lazy" decoding="async" src="images/11-wool-sheep.webp" alt="Валяні вівці на снігу" class="w-full h-full object-cover"></div>
+      <div class="reveal rounded-lg overflow-hidden shadow-xl aspect-[3/4] lift zoom" data-d="2"><img loading="lazy" decoding="async" src="images/11-tree-ornaments.webp" alt="Керамічні ялинкові прикраси" class="w-full h-full object-cover"></div>
+      <div class="reveal rounded-lg overflow-hidden shadow-xl aspect-[3/4] lift zoom" data-d="3"><img loading="lazy" decoding="async" src="images/11-corks-grid.webp" alt="Пробочки для пляшок у вишиванках" class="w-full h-full object-cover"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 12 · ВЛАСНИЙ МАГНІТ ══════════ -->
+<section class="slide bg-cream px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-[1fr_0.82fr] gap-12 md:gap-20 items-center">
+    <div class="reveal">
+      <span class="eyebrow text-clay/80" data-i18n="ey.volume">Тираж</span>
+      <h2 class="mt-5 font-serif text-[36px] md:text-[50px] leading-[1.04]">
+        <span data-i18n-html="s12.h">Давайте зробимо вам <span class="italic text-clay">власний магніт</span></span>
+      </h2>
+      <p class="mt-5 max-w-[42ch] text-[16px] leading-relaxed text-ink/65">
+        <span data-i18n="s12.p">Обирайте обсяг — решту беремо на себе: від ідеї та майстер-моделі до розпису й пакування.</span>
+      </p>
+
+      <!-- тимчасово прибрано на прохання замовника — лишаю в коді для швидкого повернення
+      <div class="mt-9 space-y-3.5 md:max-w-[380px]">
+        <div class="flex items-baseline justify-between gap-6 rounded-md bg-white border border-ink/8 px-6 py-5 shadow-sm">
+          <div>
+            <p class="font-semibold text-[16px]" data-i18n="tier.1">Добрий початок</p>
+            <p class="text-[13.5px] text-ink/50 mt-0.5">300 шт.</p>
+          </div>
+          <p class="font-serif text-[28px] text-gold">$930</p>
+        </div>
+        <div class="flex items-baseline justify-between gap-6 rounded-md bg-white border border-ink/8 px-6 py-5 shadow-sm">
+          <div>
+            <p class="font-semibold text-[16px]" data-i18n="tier.2">Впевнений рух</p>
+            <p class="text-[13.5px] text-ink/50 mt-0.5">1000 шт.</p>
+          </div>
+          <p class="font-serif text-[28px] text-gold">$1930</p>
+        </div>
+        <div class="flex items-baseline justify-between gap-6 rounded-md bg-forest text-cream px-6 py-5 shadow-lg">
+          <div>
+            <p class="font-semibold text-[16px]" data-i18n="tier.3">Всі дуже щасливі :)</p>
+            <p class="text-[13.5px] text-cream/55 mt-0.5">3000 шт.</p>
+          </div>
+          <p class="font-serif text-[28px] text-goldsoft">$4930</p>
+        </div>
+      </div>
+      -->
+
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+        <button data-open="orderModal" class="btn btn-gold">
+          <span data-i18n="btn.order">Замовити</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="text-[13.5px] text-ink/50" data-i18n-html="s12.term">Термін реалізації — <b class="font-semibold text-ink">28 днів +</b></p>
+      </div>
+    </div>
+
+    <div class="relative reveal" data-d="1">
+      <div class="rounded-lg overflow-hidden shadow-xl aspect-[3/4]">
+        <img src="images/12-minibar.webp" alt="Магніт на мінібарі у готельному номері" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute -left-4 md:-left-10 bottom-10 w-[48%] max-w-[210px] rounded-md overflow-hidden shadow-2xl border-4 border-white lift zoom">
+        <img loading="lazy" decoding="async" src="images/12-fridge-grid.webp" alt="Магніт на холодильнику" class="w-full h-full object-cover aspect-[4/5]" style="object-position:50% 0%;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 13 · КОМАНДА ТА ЦИФРИ ══════════ -->
+<section class="slide bg-white px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full grid md:grid-cols-[0.88fr_1.15fr] gap-12 md:gap-20 items-center">
+    <div class="reveal rounded-lg overflow-hidden shadow-xl aspect-[3/4]">
+      <img src="images/13-team-photo.webp" alt="Команда майстрів у майстерні" class="w-full h-full object-cover grayscale">
+    </div>
+
+    <div class="reveal md:pl-4" data-d="1">
+      <span class="eyebrow text-clay/80" data-i18n="ey.aboutthis">Про цей</span>
+      <p class="mt-1.5 text-[12px] font-bold tracking-[0.16em] uppercase text-gold" data-i18n="ey.movement">Чудовий двіж</p>
+      <p class="mt-6 max-w-[52ch] text-[15.5px] leading-relaxed text-ink/65">
+        <span data-i18n-html="s13.p">Все починається з ідеї та ескізу, переходить у ручне моделювання майстер-моделі скульптором і завершується індивідуальним розписом художниками. Кожен виріб проходить повністю ручний шлях — від задуму до фінальної деталі. Це не машинне виробництво, а <b class="font-semibold text-ink">жива реміснича робота</b>, що несе характер, точність і дух львівської традиції.</span>
+      </p>
+
+      <div class="mt-9 grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <div class="rounded-md bg-cream px-5 py-5">
+          <p class="font-serif text-[34px] leading-none text-gold">20</p>
+          <p class="mt-2.5 text-[13px] text-ink/55 leading-snug" data-i18n="st.years">років творимо</p>
+        </div>
+        <div class="rounded-md bg-cream px-5 py-5">
+          <p class="font-serif text-[34px] leading-none text-gold">560+</p>
+          <p class="mt-2.5 text-[13px] text-ink/55 leading-snug" data-i18n="st.works">витворів сувенірного мистецтва</p>
+        </div>
+        <div class="rounded-md bg-cream px-5 py-5">
+          <p class="font-serif text-[34px] leading-none text-gold">R&amp;D</p>
+          <p class="mt-2.5 text-[13px] text-ink/55 leading-snug" data-i18n="st.rd">пробуємо і навіть виходить</p>
+        </div>
+        <div class="rounded-md bg-cream px-5 py-5">
+          <p class="font-serif text-[34px] leading-none text-gold">360°</p>
+          <p class="mt-2.5 text-[13px] text-ink/55 leading-snug" data-i18n="st.360">придумаємо, зробимо і загорнемо</p>
+        </div>
+        <div class="rounded-md bg-cream px-5 py-5">
+          <p class="font-serif text-[34px] leading-none text-gold">23</p>
+          <p class="mt-2.5 text-[13px] text-ink/55 leading-snug" data-i18n="st.regions">регіони України відтворено</p>
+        </div>
+        <div class="rounded-md bg-cream px-5 py-5">
+          <p class="font-serif text-[34px] leading-none text-gold">7</p>
+          <p class="mt-2.5 text-[13px] text-ink/55 leading-snug" data-i18n="st.countries">країн представлення</p>
+        </div>
+      </div>
+
+      <p class="mt-6 text-[13px] text-ink/45">
+        <span data-i18n-html="st.list">Україна, Польща, Словаччина, Німеччина, Литва, Латвія, Естонія — і <b class="font-semibold text-ink/70">буде ще</b></span>
+      </p>
+
+      <button data-open="contactModal" class="btn btn-ink mt-8">
+        <span data-i18n="btn.contact">Сконтактувати</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 14 · З КИМ ПРАЦЮВАЛИ ══════════ -->
+<section class="slide tight bg-white px-6 md:px-[8vw] py-10 md:py-20">
+  <div class="w-full flex flex-col items-center">
+    <div class="text-center reveal">
+      <span class="eyebrow text-clay/80" data-i18n="ey.abit">Троха</span>
+      <p class="mt-2 text-[12px] font-bold tracking-[0.16em] uppercase text-gold" data-i18n="ey.madefor">Робили їм</p>
+      <h2 class="mt-5 font-serif text-[30px] md:text-[42px] leading-[1.1]">
+        <span data-i18n-html="s14.h">Музеї, парки та бренди, <span class="italic text-clay">що нам довіряють</span></span>
+      </h2>
+    </div>
+
+    <div class="mt-12 md:mt-14 w-full max-w-6xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-8 gap-y-10 place-items-center">
+      <a href="https://www.okko.ua/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" title="OKKO">
+        <img loading="lazy" decoding="async" src="images/14-okko.webp" alt="OKKO" class="max-h-[36px] max-w-full w-auto object-contain"></a>
+      <a href="https://bukovel.com/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" data-d="1" title="Bukovel">
+        <img loading="lazy" decoding="async" src="images/14-bukovel.webp" alt="Bukovel" class="max-h-[44px] max-w-full w-auto object-contain"></a>
+      <a href="https://www.instagram.com/nanashkova_hata/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" data-d="2" title="Нанашкова хата — музей">
+        <span class="relative inline-block">
+          <img loading="lazy" decoding="async" src="images/14-museum-generic.webp" alt="Нанашкова хата — музей" class="h-[92px] w-auto object-contain">
+          <span class="absolute inset-x-0 bottom-[9%] text-center text-[12px] text-[#674415]">музей</span>
+        </span></a>
+      <a href="https://castle-museum.info/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" data-d="3" title="Музей мініатюр «Замки України»">
+        <img loading="lazy" decoding="async" src="images/14-castles-museum.webp" alt="Музей мініатюр «Замки України»" class="max-h-[90px] max-w-full w-auto object-contain"></a>
+      <a href="https://underhill-park.com.ua/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" data-d="4" title="Underhill — парк історії Землі">
+        <img loading="lazy" decoding="async" src="images/14-underhill.webp" alt="Underhill — парк історії Землі" class="max-h-[108px] max-w-full w-auto object-contain scale-110"></a>
+
+      <a href="https://gedzio.com.ua/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" title="Гедзьо — парк легенд">
+        <img loading="lazy" decoding="async" src="images/14-hedzo.webp" alt="Гедзьо — парк легенд" class="max-h-[80px] max-w-full w-auto object-contain"></a>
+      <a href="https://hutsulland.com/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" data-d="1" title="Гуцул Ленд">
+        <img loading="lazy" decoding="async" src="images/14-hutsul-land.webp" alt="Гуцул Ленд" class="max-h-[92px] max-w-full w-auto object-contain"></a>
+      <a href="https://lvivskansen.org/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex flex-col items-center justify-center gap-1.5 opacity-85 hover:opacity-100 transition-opacity" data-d="2" title="Шевченківський Гай — музей">
+        <img loading="lazy" decoding="async" src="images/14-shevchenko-hai.webp" alt="Шевченківський Гай — музей" class="max-h-[52px] w-auto object-contain">
+        <span class="text-center leading-tight">
+          <span class="block text-[11px] font-bold text-[#262626] tracking-tight">ШЕВЧЕНКІВСЬКИЙ ГАЙ</span>
+          <span class="block text-[10.5px] text-[#674415]">музей</span>
+        </span></a>
+      <a href="https://portalhistoryua.com/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" data-d="3" title="Умань — місто, де тебе чекають">
+        <img loading="lazy" decoding="async" src="images/14-uman.webp" alt="Умань — місто, де тебе чекають" class="max-h-[92px] max-w-full w-auto object-contain"></a>
+      <a href="https://ururu.ua/" target="_blank" rel="noopener" class="reveal h-[92px] w-full flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity" data-d="4" title="УрУру — парк розваг">
+        <img loading="lazy" decoding="async" src="images/14-ururu.webp" alt="УрУру — парк розваг" class="max-h-[92px] max-w-full w-auto object-contain"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 15 · КОНТАКТИ ══════════ -->
+<section class="slide bg-cream px-6 md:px-[8vw] py-14 md:py-28">
+  <div class="w-full">
+    <div class="reveal flex flex-wrap items-end justify-between gap-8">
+      <div class="max-w-2xl">
+        <span class="eyebrow text-clay/80" data-i18n="ey.contact">Контактуйте</span>
+        <h2 class="mt-5 font-serif text-[32px] md:text-[46px] leading-[1.08]">
+          <span data-i18n-html="s15.h">Спокійно собі <span class="italic text-clay">пишіть-телефонуйте</span></span>
+        </h2>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button data-open="contactModal" class="btn btn-gold">
+          <span data-i18n="btn.writeus">Напишіть нам</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </button>
+        <div class="flex items-center gap-2">
+          <a href="https://www.instagram.com/bambuk.craft/" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 grid place-items-center rounded-full bg-white border border-ink/10 text-ink/60 hover:text-ink hover:border-gold transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61588175907618" target="_blank" rel="noopener" aria-label="Facebook" class="w-10 h-10 grid place-items-center rounded-full bg-white border border-ink/10 text-ink/60 hover:text-ink hover:border-gold transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+          </a>
+          <a id="contactTelegram" href="https://t.me/bambuk_souvenirs" target="_blank" rel="noopener" aria-label="Telegram" class="w-10 h-10 grid place-items-center rounded-full bg-white border border-ink/10 text-ink/60 hover:text-ink hover:border-gold transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20a1.2 1.2 0 0 1-1.9.7l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9L18 6.6c.4-.3-.1-.5-.6-.2L7 12.8l-4.6-1.4c-1-.3-1-1 .2-1.5l18-6.9c.8-.3 1.5.2 1.3 1.3z"/></svg>
+          </a>
+          <a id="contactWhatsapp" href="https://chat.whatsapp.com/DtuH8eemWVeCZ7V5ECsZyg" target="_blank" rel="noopener" aria-label="WhatsApp" class="hidden w-10 h-10 grid place-items-center rounded-full bg-white border border-ink/10 text-ink/60 hover:text-ink hover:border-gold transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.2 15 3.8 13.5 3.8 12c0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.7 8.2-8.2 8.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9 0 1.1.8 2.2.9 2.4.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.5-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-3 gap-5 md:gap-6">
+      <div class="reveal bg-white rounded-lg border border-ink/8 p-7 shadow-sm">
+        <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40" data-i18n="c.office">Офіс</p>
+        <p class="mt-4 font-serif text-[21px]">Bambuk Studio</p>
+        <p class="mt-3 text-[14.5px] text-ink/60 leading-relaxed md:whitespace-nowrap" data-i18n-html="c.addr">59 Kulparkivska str, Lviv, Ukraine</p>
+        <div class="mt-6 pt-5 border-t border-ink/8">
+          <a id="officePhone" href="tel:+380936233452" class="text-[15px] text-ink/75 hover:text-ink transition-colors">+38 (093) 623 34 52</a>
+        </div>
+      </div>
+
+      <div class="reveal bg-white rounded-lg border border-ink/8 p-7 shadow-sm" data-d="1">
+        <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40" data-i18n="c.sales">Менеджер з продажів</p>
+        <p class="mt-4 font-serif text-[21px]" data-i18n="c.bohdan">Богдан Тютько</p>
+        <p class="mt-3 text-[14.5px] text-ink/50 leading-relaxed" data-i18n="c.salesrole">Прорахунок, терміни, тираж</p>
+        <div class="mt-6 pt-5 border-t border-ink/8 space-y-1.5">
+          <a id="salesPhone1" href="tel:+380683487589" class="block text-[15px] text-ink/75 hover:text-ink transition-colors">+38 (068) 348 75 89</a>
+          <a id="salesPhone2" href="#" class="hidden text-[15px] text-ink/75 hover:text-ink transition-colors">+00</a>
+        </div>
+      </div>
+
+      <div class="reveal bg-white rounded-lg border border-ink/8 p-7 shadow-sm" data-d="2">
+        <p class="text-[12px] uppercase tracking-[0.1em] text-ink/40" data-i18n="c.production">Керівник виробництва</p>
+        <p class="mt-4 font-serif text-[21px]" data-i18n="c.zoreslava">Зореслава Тютько</p>
+        <p class="mt-3 text-[14.5px] text-ink/50 leading-relaxed" data-i18n="c.prodrole">Технологія, матеріали, розпис</p>
+        <div id="zoreslavaPhoneWrap" class="mt-6 pt-5 border-t border-ink/8">
+          <a href="tel:+380981297422" class="text-[15px] text-ink/75 hover:text-ink transition-colors">+38 (098) 129 74 22</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 16 · ФІНАЛ ══════════ -->
+<section class="relative overflow-hidden isolate" style="min-height:clamp(420px,40vw,640px)">
+  <div class="absolute inset-0 -z-20">
+    <img loading="lazy" decoding="async" src="images/16-nativity.webp" alt="Керамічна різдвяна композиція з колядниками" class="w-full h-full object-cover">
+  </div>
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-forestdeep/35 via-transparent to-forestdeep/45"></div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="bg-cream px-6 md:px-[8vw] py-10 md:py-12">
+  <div class="flex flex-wrap items-end justify-between gap-8">
+    <div>
+      <div class="flex items-end gap-1.5">
+        <img loading="lazy" decoding="async" src="images/lviv-logo-dark.webp" alt="Львів" class="h-[76px] w-auto">
+        <div class="text-[14px] leading-snug text-ink/80 pb-1" data-i18n-html="brand.lvivDark"><b class="text-clay font-semibold">Крафтові</b> витвори<br>зі Львова</div>
+      </div>
+      <p class="mt-6 text-[13px] text-ink/45">Copyright © 2026. Bambuk Craft. All rights reserved.</p>
+    </div>
+
+    <p class="text-[13px] text-ink/55">
+      Designed &amp; Developed by
+      <a href="https://bambukstudio.com/" target="_blank" rel="noopener" class="font-semibold text-ink underline decoration-gold/60 underline-offset-2 hover:text-clay transition-colors">Bambuk</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<dialog id="lightbox" class="w-full h-full" aria-label="Перегляд зображення">
+  <div class="relative w-full h-full flex items-center justify-center p-4 md:p-10" data-lb-close>
+    <button data-close class="absolute top-4 right-4 md:top-6 md:right-6 w-11 h-11 grid place-items-center rounded-full bg-white/12 hover:bg-white/22 text-white transition-colors" aria-label="Закрити">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <figure class="max-w-[92vw] max-h-[86vh] flex flex-col items-center gap-3">
+      <img loading="lazy" decoding="async" id="lbImg" src="" alt="" class="max-w-full max-h-[78vh] w-auto h-auto rounded-md shadow-2xl object-contain">
+    </figure>
+  </div>
+</dialog>
+
+<!-- ══════════ CONTACT MODAL ══════════ -->
+<dialog id="contactModal" aria-labelledby="contactTitle">
+  <div class="w-[92vw] max-w-[520px] max-h-[88vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
+    <div class="flex items-start justify-between gap-4 px-7 pt-7">
+      <div>
+        <span class="eyebrow text-clay/80" data-i18n="ey.writeus">Напишіть нам</span>
+        <h3 id="contactTitle" class="mt-3 font-serif text-[27px] leading-tight" data-i18n-html="cm.title">Спокійно собі <span class="italic text-clay">пишіть</span></h3>
+      </div>
+      <button data-close class="shrink-0 w-9 h-9 grid place-items-center rounded-full text-ink/45 hover:text-ink hover:bg-ink/6 transition-colors" aria-label="Закрити">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <!-- action/method to be pointed at the backend endpoint -->
+    <form class="px-7 pb-7 pt-6 space-y-4" method="post" action="#" novalidate>
+      <!-- honeypot: hidden from people, filled by bots -->
+      <div class="hidden" aria-hidden="true">
+        <label>Не заповнюйте це поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="lbl" for="c_first" data-i18n="fm.first">Ім'я *</label>
+          <input class="field" id="c_first" name="first_name" type="text" required autocomplete="given-name">
+        </div>
+        <div>
+          <label class="lbl" for="c_last" data-i18n="fm.last">Прізвище *</label>
+          <input class="field" id="c_last" name="last_name" type="text" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div>
+        <label class="lbl" for="c_phone" data-i18n="fm.phone">Телефон *</label>
+        <input class="field" id="c_phone" name="phone" type="tel" required autocomplete="tel" placeholder="+38 (0__) ___ __ __">
+      </div>
+
+      <div>
+        <label class="lbl" for="c_email" data-i18n-html="fm.email">Пошта <span class="opt">(необов'язково)</span></label>
+        <input class="field" id="c_email" name="email" type="email" autocomplete="email">
+      </div>
+
+      <div>
+        <label class="lbl" for="c_msg" data-i18n-html="fm.msg">Повідомлення <span class="opt">(необов'язково)</span></label>
+        <textarea class="field resize-y min-h-[96px]" id="c_msg" name="message" rows="3"></textarea>
+      </div>
+
+      <div class="flex items-center gap-3 pt-1">
+        <button type="submit" class="btn btn-gold" data-i18n="btn.send">Надіслати</button>
+        <button type="button" data-close class="btn btn-outline" data-i18n="btn.cancel">Скасувати</button>
+      </div>
+      <p class="text-[12px] text-ink/40 pt-1" data-i18n="fm.required">* — обов'язкові поля</p>
+    </form>
+  </div>
+</dialog>
+
+<!-- ══════════ ORDER MODAL ══════════ -->
+<dialog id="orderModal" aria-labelledby="orderTitle">
+  <div class="w-[92vw] max-w-[580px] max-h-[88vh] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden">
+    <div class="shrink-0 flex items-start justify-between gap-4 px-7 pt-7 pb-1">
+      <div>
+        <span class="eyebrow text-clay/80" data-i18n="ey.order">Замовлення</span>
+        <h3 id="orderTitle" class="mt-3 font-serif text-[27px] leading-tight" data-i18n-html="om.title">Зробимо вам <span class="italic text-clay">свій сувенір</span></h3>
+      </div>
+      <button data-close class="shrink-0 w-9 h-9 grid place-items-center rounded-full text-ink/45 hover:text-ink hover:bg-ink/6 transition-colors" aria-label="Закрити">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <form id="orderForm" class="flex flex-col flex-1 min-h-0" method="post" action="#" novalidate>
+      <div class="flex-1 min-h-0 overflow-y-auto px-7 pt-6 pb-4 space-y-5">
+        <div class="hidden" aria-hidden="true">
+          <label>Не заповнюйте це поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <fieldset>
+          <legend class="lbl" data-req="who" data-i18n="fm.who">Хто ви? *</legend>
+          <div class="flex flex-wrap gap-2">
+            <label class="choice"><input type="radio" name="who" value="Компанія"> <span data-i18n="who.company">Компанія</span></label>
+            <label class="choice"><input type="radio" name="who" value="Організатор івенту"> <span data-i18n="who.event">Організатор івенту</span></label>
+            <label class="choice"><input type="radio" name="who" value="Приватна особа"> <span data-i18n="who.private">Приватна особа</span></label>
+            <label class="choice"><input type="radio" name="who" value="Інше"> <span data-i18n="who.other">Інше</span></label>
+          </div>
+        </fieldset>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="lbl" for="o_name" data-i18n="fm.first">Ім'я *</label>
+            <input class="field" id="o_name" name="name" type="text" autocomplete="name">
+          </div>
+          <div>
+            <label class="lbl" for="o_phone" data-i18n="fm.phone">Телефон *</label>
+            <input class="field" id="o_phone" name="phone" type="tel" autocomplete="tel" placeholder="+38 (0__) ___ __ __">
+          </div>
+        </div>
+
+        <div>
+          <label class="lbl" for="o_qty" data-i18n="fm.qty">Кількість, шт. *</label>
+          <div class="inline-flex items-stretch rounded-md border border-ink/18 overflow-hidden">
+            <button type="button" data-step="-1" class="w-11 grid place-items-center text-ink/60 hover:bg-ink/6 transition-colors" aria-label="Менше">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+            </button>
+            <input class="w-24 text-center border-x border-ink/18 font-semibold text-[15px] focus:outline-none" id="o_qty" name="quantity" type="number" min="1" step="1" value="300">
+            <button type="button" data-step="1" class="w-11 grid place-items-center text-ink/60 hover:bg-ink/6 transition-colors" aria-label="Більше">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="lbl" for="o_email" data-i18n-html="fm.email">Пошта <span class="opt">(необов'язково)</span></label>
+          <input class="field" id="o_email" name="email" type="email" autocomplete="email">
+        </div>
+
+        <div>
+          <label class="lbl" for="o_msg" data-i18n="fm.msgreq">Повідомлення *</label>
+          <textarea class="field resize-y min-h-[90px]" id="o_msg" name="message" rows="3"></textarea>
+        </div>
+
+        <!-- ═══ CAPTCHA PLACEHOLDER ═══
+             Backend team: add to <head>
+               <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+             then replace data-sitekey below with the real key and delete this note. -->
+        <div>
+          <span class="lbl" data-i18n="fm.verify">Підтвердження *</span>
+          <div class="g-recaptcha" data-sitekey="RECAPTCHA_SITE_KEY_HERE"></div>
+          <div class="rounded-md border border-dashed border-ink/25 bg-ink/3 px-4 py-5 text-center">
+            <p class="text-[13px] text-ink/50" data-i18n="fm.captcha">Місце для reCAPTCHA</p>
+            <p class="text-[11.5px] text-ink/35 mt-1">заглушка — підключається ключем на бекенді</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="shrink-0 border-t border-ink/8 px-7 py-5 bg-white">
+        <div class="flex items-center gap-3">
+          <button type="submit" class="btn btn-gold" data-i18n="btn.sendorder">Надіслати заявку</button>
+          <button type="button" data-close class="btn btn-outline" data-i18n="btn.cancel">Скасувати</button>
+        </div>
+        <p class="text-[12px] text-ink/40 pt-2" data-i18n="fm.required">* — обов'язкові поля</p>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
