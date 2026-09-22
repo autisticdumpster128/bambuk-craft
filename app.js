@@ -195,13 +195,28 @@
 
   /* ——— language switcher ——— */
   var langButtons = document.querySelectorAll('[data-lang]');
+  var langSelect = document.getElementById('langSelect');
   var heroBg = document.getElementById('heroBg');
+  var currentLangCode = 'ua';
+
+  /* phones get their own portrait-cropped hero photo (data-bg-<code>-m) instead of
+     a cropped sliver of the wide desktop one; re-checked live if the viewport crosses
+     the breakpoint (rotation, resizing), not just on load/language-change */
+  var heroBgMobileQuery = window.matchMedia('(max-width: 767px)');
 
   function updateHeroBg(code) {
     if (!heroBg) return;
-    var src = heroBg.getAttribute('data-bg-' + code);
+    var mobileAttr = 'data-bg-' + code + '-m';
+    var src = (heroBgMobileQuery.matches && heroBg.getAttribute(mobileAttr)) || heroBg.getAttribute('data-bg-' + code);
     if (src) heroBg.src = src;
   }
+  if (heroBgMobileQuery.addEventListener) {
+    heroBgMobileQuery.addEventListener('change', function () { updateHeroBg(currentLangCode); });
+  }
+  /* the <img> tag's own src="" in the HTML is the small mobile photo (right for most
+     visitors); this upgrades it to the full desktop crop when the page opens wide,
+     without ever making a phone fetch the bigger desktop image first */
+  updateHeroBg(currentLangCode);
 
   /* ——— contact facts that differ per language: different phone numbers, a different
      sales contact person, and Telegram vs WhatsApp. This is data, not translation —
@@ -278,6 +293,7 @@
     var dict = (window.I18N || {})[code];
     if (!dict) return;
 
+    currentLangCode = code;
     document.documentElement.lang = { ua: 'uk', cz: 'cs' }[code] || code;
     updateHeroBg(code);
     applyContactData(code);
@@ -297,8 +313,12 @@
       if (on) b.setAttribute('aria-current', 'true');
       else b.removeAttribute('aria-current');
     });
+    if (langSelect) langSelect.value = code;
   }
   langButtons.forEach(function (b) {
     b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
   });
+  if (langSelect) {
+    langSelect.addEventListener('change', function () { setLang(this.value); });
+  }
 })();

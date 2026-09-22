@@ -111,9 +111,33 @@
   #siteHeader.is-solid .lang-btn:hover{ color:#241c14; }
   #siteHeader.is-solid .lang-btn.is-active{ color:#241c14; background:rgba(36,28,20,.09); }
 
+  /* ——— mobile language dropdown: the per-language buttons don't fit on narrow
+     phones and start overlapping, so small screens get a single <select> instead ——— */
+  .lang-select{
+    -webkit-appearance:none; -moz-appearance:none; appearance:none;
+    color:#f5f0e4; background-color:rgba(245,240,228,.14);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f0e4' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right .55rem center; background-size:11px;
+    border:none; cursor:pointer; font-family:Inter,sans-serif; font-size:11px; font-weight:700;
+    letter-spacing:.02em; padding:.45rem 1.55rem .45rem .65rem; border-radius:999px;
+    transition:color .35s ease, background-color .35s ease;
+  }
+  .lang-select:focus{ outline:2px solid rgba(201,162,39,.6); outline-offset:1px; }
+  #siteHeader.is-solid .lang-select{
+    color:#241c14; background-color:rgba(36,28,20,.07);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23241c14' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  }
+  .lang-select option{ color:#241c14; background:#fff; }
+
   /* ——— motion ——— */
   @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.8) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(8deg)}}
+  #heroBg{ animation:kenburns 20s ease-out forwards; }
   @keyframes kenburns{from{transform:scale(1.06)}to{transform:scale(1.16)}}
+  @keyframes kenburnsMobile{from{transform:scale(1)}to{transform:scale(1.06)}}
+  @media (max-width:767px){
+    /* less crop + a gentler drift on phones, so the ornament isn't pressed against the glass */
+    #heroBg{ animation-name:kenburnsMobile; }
+  }
   @keyframes drip{0%{transform:scaleY(.25);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}
     50.01%{transform-origin:bottom}100%{transform:scaleY(.25);transform-origin:bottom}}
   .reveal{opacity:0;transform:translateY(4%);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1)}
@@ -162,8 +186,8 @@
 
     <!-- centre: phone (compact on mobile) + socials (desktop only) -->
     <div class="flex-1 flex items-center justify-center gap-3 md:gap-9 min-w-0">
-      <span class="hdr-fg text-[11px] md:text-[14px] font-semibold tracking-wide whitespace-nowrap" data-i18n="hdr.phone">
-        +38 (068) 348 75 89
+      <span class="hdr-fg text-[11px] md:text-[14px] font-semibold tracking-wide text-center md:whitespace-nowrap" data-i18n="hdr.phone">
+        +38 068 348 75 89
       </span>
 
       <span class="hdr-sep hidden md:block w-px h-5"></span>
@@ -186,12 +210,19 @@
 
     <!-- right: language + contact -->
     <div class="shrink-0 flex items-center gap-1.5 md:gap-5">
-      <div class="flex items-center gap-0.5 md:gap-1 text-[11px] md:text-[12.5px] font-bold tracking-wide" role="group" aria-label="Мова сайту">
+      <div class="hidden md:flex items-center gap-0.5 md:gap-1 text-[11px] md:text-[12.5px] font-bold tracking-wide" role="group" aria-label="Мова сайту">
         <button type="button" data-lang="ua" class="lang-btn is-active px-1.5 md:px-2 py-1 rounded-md" aria-current="true">UA</button>
         <button type="button" data-lang="en" class="lang-btn px-1.5 md:px-2 py-1 rounded-md">EN</button>
         <button type="button" data-lang="pl" class="lang-btn px-1.5 md:px-2 py-1 rounded-md">PL</button>
         <button type="button" data-lang="cz" class="lang-btn px-1.5 md:px-2 py-1 rounded-md">CZ</button>
       </div>
+
+      <select id="langSelect" class="lang-select md:hidden" aria-label="Мова сайту">
+        <option value="ua" selected>UA</option>
+        <option value="en">EN</option>
+        <option value="pl">PL</option>
+        <option value="cz">CZ</option>
+      </select>
 
       <span class="hdr-sep hidden md:block w-px h-5"></span>
 
@@ -204,11 +235,12 @@
 </header>
 
 <!-- ══════════ 01 · HERO ══════════ -->
-<section class="relative min-h-screen flex flex-col justify-between overflow-hidden isolate pt-[86px]">
-  <div id="heroParallax" class="absolute inset-x-0 -z-20" style="top:-6%; height:112%;">
-    <img id="heroBg" src="images/01-hero.webp"
+<section class="relative min-h-screen flex flex-col justify-between overflow-hidden isolate pt-[86px] bg-forestdeep">
+  <div id="heroParallax" class="absolute inset-x-0 -z-20 top-[-6%] h-[112%]">
+    <img id="heroBg" src="images/01-hero-mobile.webp"
          data-bg-ua="images/01-hero.webp" data-bg-en="images/01-hero-alt.webp" data-bg-pl="images/01-hero-alt.webp" data-bg-cz="images/01-hero-alt.webp"
-         alt="Керамічна прикраса-лев на ялинових гілках" class="w-full h-full object-cover object-[28%_center] md:object-center" style="animation:kenburns 20s ease-out forwards">
+         data-bg-ua-m="images/01-hero-mobile.webp" data-bg-en-m="images/01-hero-alt-mobile.webp" data-bg-pl-m="images/01-hero-alt-mobile.webp" data-bg-cz-m="images/01-hero-alt-mobile.webp"
+         alt="Керамічна прикраса-лев на ялинових гілках" class="w-full h-full object-cover object-center">
   </div>
   <div class="absolute inset-0 -z-10 bg-gradient-to-b from-forestdeep/55 via-forestdeep/10 to-forestdeep/75"></div>
   <div class="absolute inset-0 -z-10 bg-gradient-to-r from-forestdeep/50 via-transparent to-transparent"></div>
@@ -220,7 +252,7 @@
     </div>
 
     <div class="max-w-xl text-right ml-auto">
-      <h1 class="font-serif font-normal text-cream leading-[0.95] text-[42px] md:text-[80px]">
+      <h1 class="font-serif font-normal text-cream leading-[0.95] text-[36px] md:text-[80px]">
         <span data-i18n="hero.t1">Сувеніри</span>
         <span class="block italic font-light text-gold">
           <span data-i18n="hero.t2">сяють файно</span>
@@ -233,7 +265,7 @@
     </div>
   </div>
 
-  <div class="absolute bottom-28 md:bottom-32 left-0 right-0 flex justify-center pointer-events-none">
+  <div class="absolute bottom-28 md:bottom-32 left-0 right-0 hidden md:flex justify-center pointer-events-none">
     <div class="flex flex-col items-center gap-2 text-cream/55 text-[10px] tracking-[0.22em] uppercase">
       <span class="w-px h-8 bg-gradient-to-b from-gold to-transparent" style="animation:drip 1.8s ease-in-out infinite"></span>
       <span class="hidden md:inline" data-i18n="hero.scroll">Гортай</span>
