@@ -119,10 +119,15 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f0e4' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat:no-repeat; background-position:right .55rem center; background-size:11px;
     border:none; cursor:pointer; font-family:Inter,sans-serif; font-size:11px; font-weight:700;
-    letter-spacing:.02em; padding:.45rem 1.55rem .45rem .65rem; border-radius:999px;
+    letter-spacing:.02em; padding:0 1.55rem 0 .65rem; border-radius:999px;
     transition:color .35s ease, background-color .35s ease;
   }
   .lang-select:focus{ outline:2px solid rgba(201,162,39,.6); outline-offset:1px; }
+  @media (max-width:767px){
+    /* explicit box model only on phones, where the select is actually shown —
+       kept out of the base rule so it can never compete with md:hidden's display:none */
+    .lang-select{ display:inline-flex; align-items:center; height:2.25rem; box-sizing:border-box; }
+  }
   #siteHeader.is-solid .lang-select{
     color:#241c14; background-color:rgba(36,28,20,.07);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23241c14' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
@@ -177,17 +182,17 @@
 
 <!-- ══════════ STICKY HEADER ══════════ -->
 <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 isolate">
-  <div class="h-[86px] px-4 md:px-[3vw] flex items-center gap-2 md:gap-4">
+  <div class="h-[86px] px-6 md:px-[3vw] flex items-center gap-1.5 md:gap-4">
 
     <!-- left: logo — swaps white/black with header state via JS -->
-    <a href="http://craft.bambukstudio.com/" target="_blank" rel="noopener" class="shrink-0" aria-label="Bambuk Craft">
-      <img id="headerLogo" src="images/logo/bambuk-logo-white.svg" alt="Bambuk Craft" class="h-[52px] md:h-[64px] w-auto">
+    <a href="http://craft.bambukstudio.com/" target="_blank" rel="noopener" class="shrink-0 -ml-[19px] md:-ml-[27px]" aria-label="Bambuk Craft">
+      <img id="headerLogo" src="images/logo/bambuk-logo-white.svg" alt="Bambuk Craft" class="h-[44px] md:h-[64px] w-auto">
     </a>
 
     <!-- centre: phone (compact on mobile) + socials (desktop only) -->
     <div class="flex-1 flex items-center justify-center gap-3 md:gap-9 min-w-0">
-      <span class="hdr-fg text-[11px] md:text-[14px] font-semibold tracking-wide text-center md:whitespace-nowrap" data-i18n="hdr.phone">
-        +38 068 348 75 89
+      <span class="hdr-fg text-[10px] md:text-[14px] font-semibold tracking-wide text-center md:whitespace-nowrap" data-i18n="hdr.phone">
+        +38 (068) 348 75 89
       </span>
 
       <span class="hdr-sep hidden md:block w-px h-5"></span>
@@ -226,7 +231,7 @@
 
       <span class="hdr-sep hidden md:block w-px h-5"></span>
 
-      <button data-open="contactModal" class="btn btn-gold !py-2.5 !px-3 md:!px-5 !text-[13px]">
+      <button data-open="contactModal" class="btn btn-gold h-9 md:h-auto !py-0 md:!py-2.5 !px-3 md:!px-5 !text-[13px]">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5h16v14H4z"/><path d="m4 6 8 6 8-6"/></svg>
         <span class="hidden sm:inline" data-i18n="nav.contact">Сконтактувати</span>
       </button>
@@ -245,13 +250,13 @@
   <div class="absolute inset-0 -z-10 bg-gradient-to-b from-forestdeep/55 via-forestdeep/10 to-forestdeep/75"></div>
   <div class="absolute inset-0 -z-10 bg-gradient-to-r from-forestdeep/50 via-transparent to-transparent"></div>
 
-  <div class="flex-1 flex items-end justify-between gap-10 px-6 md:px-[5vw] pb-20 md:pb-24">
-    <div class="flex md:items-end gap-1.5 text-cream">
-      <img src="images/lviv-logo-white.webp" alt="Львів" class="h-[52px] md:h-[96px] w-auto opacity-95">
-      <div class="text-[11px] md:text-[13px] leading-snug pb-1" data-i18n-html="brand.lviv"><b class="text-gold">Крафтові</b> витвори<br>зі Львова</div>
+  <div class="flex-1 flex flex-wrap content-end items-end gap-x-10 gap-y-4 px-6 md:px-[5vw] pb-20 md:pb-24">
+    <div class="order-3 md:order-1 w-full md:w-auto flex items-center md:items-end gap-1 md:gap-1.5 text-cream">
+      <img src="images/lviv-logo-white.webp" alt="Львів" class="h-[40px] md:h-[96px] w-auto opacity-95">
+      <div class="text-[10px] md:text-[13px] leading-snug" data-i18n-html="brand.lviv"><b class="text-gold">Крафтові</b> витвори<br>зі Львова</div>
     </div>
 
-    <div class="max-w-xl text-right ml-auto">
+    <div class="order-1 md:order-2 w-full md:w-auto max-w-xl text-center md:text-right md:ml-auto">
       <h1 class="font-serif font-normal text-cream leading-[0.95] text-[36px] md:text-[80px]">
         <span data-i18n="hero.t1">Сувеніри</span>
         <span class="block italic font-light text-gold">
@@ -261,7 +266,10 @@
           </span>
         </span>
       </h1>
-      <p class="mt-6 ml-auto max-w-[32ch] text-cream/80 text-base md:text-lg" data-i18n="hero.sub">Ручна робота, вирізьблена з характером — керамічні прикраси, народжені у львівських майстернях.</p>
+    </div>
+
+    <div class="order-2 md:order-3 w-full">
+      <p class="text-center md:text-right text-cream/80 text-[12.5px] md:text-lg md:max-w-[32ch] md:ml-auto" data-i18n="hero.sub">Ручна робота, вирізьблена з характером — керамічні прикраси, народжені у львівських майстернях.</p>
     </div>
   </div>
 
