@@ -143,6 +143,16 @@
     /* less crop + a gentler drift on phones, so the ornament isn't pressed against the glass */
     #heroBg{ animation-name:kenburnsMobile; }
   }
+  @media (max-width:767px){
+    /* on phones, the bg image shows almost its full height regardless of screen height, so the
+       ornament's face sits at a near-fixed spot — but the text block's own height is fixed in px,
+       so on shorter screens (iPhone SE and similar, ~660-800px tall) it reaches further up into
+       the image. Scale the text block's footprint down smoothly as height shrinks below ~812px
+       (a comfortably-tall phone, where the original spacing already looks right) so there's
+       always clearance above it; clamp() holds it at the original values from ~812px up. */
+    #heroContent{ padding-bottom:clamp(1.75rem, 19vh - 100px, 3.5rem); row-gap:clamp(.5rem, 5.5vh - 29px, 1rem); }
+    #heroContent h1{ font-size:clamp(27px, 4.8vh - 3px, 34px); }
+  }
   @keyframes drip{0%{transform:scaleY(.25);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}
     50.01%{transform-origin:bottom}100%{transform:scaleY(.25);transform-origin:bottom}}
   .reveal{opacity:0;transform:translateY(4%);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1)}
@@ -241,7 +251,7 @@
 
 <!-- ══════════ 01 · HERO ══════════ -->
 <section class="relative min-h-screen flex flex-col justify-between overflow-hidden isolate pt-[86px] bg-forestdeep">
-  <div id="heroParallax" class="absolute inset-x-0 -z-20 top-[-6%] h-[112%]">
+  <div id="heroParallax" class="absolute inset-x-0 -z-20 top-[-6%] h-[112%] max-md:top-[-10%]">
     <img id="heroBg" src="images/01-hero-mobile.webp"
          data-bg-ua="images/01-hero.webp" data-bg-en="images/01-hero-alt.webp" data-bg-pl="images/01-hero-alt.webp" data-bg-cz="images/01-hero-alt.webp"
          data-bg-ua-m="images/01-hero-mobile.webp" data-bg-en-m="images/01-hero-alt-mobile.webp" data-bg-pl-m="images/01-hero-alt-mobile.webp" data-bg-cz-m="images/01-hero-alt-mobile.webp"
@@ -250,7 +260,7 @@
   <div class="absolute inset-0 -z-10 bg-gradient-to-b from-forestdeep/55 via-forestdeep/10 to-forestdeep/75"></div>
   <div class="absolute inset-0 -z-10 bg-gradient-to-r from-forestdeep/50 via-transparent to-transparent"></div>
 
-  <div class="flex-1 flex flex-wrap content-end items-end gap-x-10 gap-y-4 px-6 md:px-[5vw] pb-20 md:pb-24">
+  <div id="heroContent" class="flex-1 flex flex-wrap content-end items-end gap-x-10 gap-y-4 px-6 md:px-[5vw] pb-20 md:pb-24">
     <div class="order-3 md:order-1 w-full md:w-auto flex items-center md:items-end gap-1 md:gap-1.5 text-cream">
       <img src="images/lviv-logo-white.webp" alt="Львів" class="h-[40px] md:h-[96px] w-auto opacity-95">
       <div class="text-[10px] md:text-[13px] leading-snug" data-i18n-html="brand.lviv"><b class="text-gold">Крафтові</b> витвори<br>зі Львова</div>
