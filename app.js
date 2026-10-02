@@ -218,6 +218,18 @@
      without ever making a phone fetch the bigger desktop image first */
   updateHeroBg(currentLangCode);
 
+  /* "example" rubber-stamp badge next to the tourist-magnet eyebrow — each language
+     gets its own stamp graphic (word is baked into the image, not overlaid text) */
+  var exampleStamp = document.getElementById('exampleStamp');
+  var STAMP_ALT = { ua: 'Приклад', en: 'Example', pl: 'Przykład', cz: 'Příklad' };
+  function updateStampImg(code) {
+    if (!exampleStamp) return;
+    var src = exampleStamp.getAttribute('data-stamp-' + code);
+    if (src) exampleStamp.src = src;
+    exampleStamp.alt = STAMP_ALT[code] || STAMP_ALT.ua;
+  }
+  updateStampImg(currentLangCode);
+
   /* ——— contact facts that differ per language: different phone numbers, a different
      sales contact person, and Telegram vs WhatsApp. This is data, not translation —
      kept separate from i18n.js on purpose. `cz` is filled in for when Czech text is
@@ -296,6 +308,7 @@
     currentLangCode = code;
     document.documentElement.lang = { ua: 'uk', cz: 'cs' }[code] || code;
     updateHeroBg(code);
+    updateStampImg(code);
     applyContactData(code);
 
     document.querySelectorAll('[data-i18n]').forEach(function (el) {

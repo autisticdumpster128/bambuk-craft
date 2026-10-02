@@ -17,21 +17,19 @@
 <meta name="description" content="Ручна робота зі Львова: магніти, статуетки, посуд і декор із дерева, кераміки та металу. Власне виробництво з 2006 року.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          forest:'#14231a', forestdeep:'#0b160e', cream:'#f5f0e4',
-          gold:'#c9a227', goldsoft:'#ddb256', clay:'#8a5a3d', ink:'#241c14',
-        },
-        fontFamily: { serif:['Fraunces','serif'], sans:['Inter','sans-serif'] },
-      }
-    }
-  }
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<!-- Precompiled Tailwind build (see tailwind.src.css / tailwind.config.src.js) — NOT the
+     cdn.tailwindcss.com script. That script has to download, run, scan every class name on
+     the page and inject its own <style> tag before any Tailwind class takes effect at all;
+     on a slow phone connection that's a visible window where the page sits completely
+     unstyled (no flex, no positioning, no colors) and then snaps into place, which is what
+     was showing up as the header/stats-card overlap and "crooked" layout on real phones —
+     Chrome's desktop simulator and this project's own localhost tests never hit that window
+     because the script loads instantly there. A plain stylesheet link applies synchronously
+     with the rest of the CSS, so there's nothing left to snap into place.
+     Theme: colors forest/forestdeep/cream/gold/goldsoft/clay/ink; fontFamily serif:
+     Fraunces→Lora→serif (Lora is the Cyrillic fallback — Fraunces has no Cyrillic glyphs). -->
+<link rel="stylesheet" href="styles.css">
 <style>
   html{ scroll-behavior:smooth; }
   body{ -webkit-font-smoothing:antialiased; }
@@ -143,6 +141,13 @@
     /* less crop + a gentler drift on phones, so the ornament isn't pressed against the glass */
     #heroBg{ animation-name:kenburnsMobile; }
   }
+  /* Safari on real iPhones computes 100vh (Tailwind's min-h-screen) against the viewport
+     WITHOUT the collapsible address/toolbar, i.e. taller than what's actually visible when
+     the toolbar is showing — the opposite of what Chrome's device-simulation mode reports,
+     which is why this only ever shows up on an actual phone. dvh tracks the toolbar's real,
+     current state; min-h-screen above is the fallback for the handful of older engines that
+     don't understand dvh yet (this rule is simply skipped by them). */
+  #hero{ min-height:100dvh; }
   @media (max-width:767px){
     /* on phones, the bg image shows almost its full height regardless of screen height, so the
        ornament's face sits at a near-fixed spot — but the text block's own height is fixed in px,
@@ -250,7 +255,7 @@
 </header>
 
 <!-- ══════════ 01 · HERO ══════════ -->
-<section class="relative min-h-screen flex flex-col justify-between overflow-hidden isolate pt-[86px] bg-forestdeep">
+<section id="hero" class="relative min-h-screen flex flex-col justify-between overflow-hidden isolate pt-[86px] bg-forestdeep">
   <div id="heroParallax" class="absolute inset-x-0 -z-20 top-[-6%] h-[112%] max-md:top-[-10%]">
     <img id="heroBg" src="images/01-hero-mobile.webp"
          data-bg-ua="images/01-hero.webp" data-bg-en="images/01-hero-alt.webp" data-bg-pl="images/01-hero-alt.webp" data-bg-cz="images/01-hero-alt.webp"
@@ -261,7 +266,7 @@
   <div class="absolute inset-0 -z-10 bg-gradient-to-r from-forestdeep/50 via-transparent to-transparent"></div>
 
   <div id="heroContent" class="flex-1 flex flex-wrap content-end items-end gap-x-10 gap-y-4 px-6 md:px-[5vw] pb-20 md:pb-24">
-    <div class="order-3 md:order-1 w-full md:w-auto flex items-center md:items-end gap-1 md:gap-1.5 text-cream">
+    <div class="order-3 md:order-1 w-full md:w-auto flex items-center md:items-end gap-1 md:gap-1.5 text-cream md:translate-y-[100px]">
       <img src="images/lviv-logo-white.webp" alt="Львів" class="h-[40px] md:h-[96px] w-auto opacity-95">
       <div class="text-[10px] md:text-[13px] leading-snug" data-i18n-html="brand.lviv"><b class="text-gold">Крафтові</b> витвори<br>зі Львова</div>
     </div>
@@ -293,7 +298,7 @@
 
 <!-- ══════════ bridge card (sits on the cream, no stray white band) ══════════ -->
 <div class="bg-cream">
-  <div class="px-6 md:px-[8vw] -translate-y-14 md:-translate-y-16 mb-[-3rem] md:mb-[-3.5rem]">
+  <div class="px-6 md:px-[8vw] -translate-y-4 md:-translate-y-16 -mb-4 md:mb-[-3.5rem]">
     <div class="reveal bg-white rounded-lg shadow-2xl shadow-black/20 px-7 md:px-12 py-8 md:py-10 flex flex-col md:flex-row flex-wrap items-start md:items-center justify-start md:justify-between gap-x-10 gap-y-5 md:gap-y-6">
       <div class="flex items-center gap-3.5">
         <span class="font-serif text-[36px] md:text-[40px] leading-none text-gold">2006</span>
@@ -565,7 +570,10 @@
     <div class="reveal" data-d="1">
       <div class="flex items-center gap-4 flex-wrap">
         <span class="eyebrow text-clay/80" data-i18n="ey.tourmag">Туристичний магніт</span>
-        <img loading="lazy" decoding="async" src="images/08-example-stamp.webp" alt="Приклад" class="h-24 w-auto">
+        <img id="exampleStamp" loading="lazy" decoding="async" src="images/08-example-stamp.webp"
+             data-stamp-ua="images/08-example-stamp.webp" data-stamp-en="images/08-example-stamp-en.webp"
+             data-stamp-pl="images/08-example-stamp-pl.webp" data-stamp-cz="images/08-example-stamp-cz.webp"
+             alt="Приклад" class="h-24 w-auto">
       </div>
       <h2 class="mt-6 font-serif text-[38px] md:text-[54px] leading-[1.03] text-clay" data-i18n="s8.h">Квітковий лев</h2>
       <p class="mt-4 max-w-[36ch] text-[16px] leading-relaxed text-ink/65">
