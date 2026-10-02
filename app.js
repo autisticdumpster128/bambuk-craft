@@ -67,12 +67,19 @@
     });
   });
 
-  /* ——— hero parallax: background trails the scroll instead of moving 1:1 ——— */
+  /* ——— hero parallax: background trails the scroll instead of moving 1:1 ————
+     desktop only: on phones the extra scaled-up "bleed" room this needs made the
+     scroll-driven shift read as stutter/lag rather than a smooth parallax, so
+     mobile gets the plain, un-zoomed background with no scroll transform at all. */
   var heroWrap = document.getElementById('heroParallax');
   var heroSection = document.querySelector('section');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function heroParallax() {
     if (!heroWrap || !heroSection || reduceMotion) return;
+    if (window.innerWidth < 768) {
+      if (heroWrap.style.transform) heroWrap.style.transform = '';
+      return;
+    }
     var h = heroSection.offsetHeight;
     var y = window.scrollY;
     if (y > h) return; // hero is out of view, nothing to update
@@ -95,7 +102,7 @@
   headerState();
   heroParallax();
   window.addEventListener('scroll', function () { headerState(); heroParallax(); }, { passive: true });
-  window.addEventListener('resize', headerState);
+  window.addEventListener('resize', function () { headerState(); heroParallax(); });
 
   /* ——— order form: block submit until every required field is filled ——— */
   var orderForm = document.getElementById('orderForm');
